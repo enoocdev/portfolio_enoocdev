@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio | {{ user.name }}</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+    <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'p-dark': '#0a0b0e',
+                        'p-gray': '#16181d',
+                        'p-blue': '#007bff',
+                        'p-accent': '#00d2ff',
+                    },
+                },
+            },
+        }
+    </script>
+    <style>
+        .skill-card:hover iconify-icon { transform: scale(1.2) rotate(5deg); }
+        iconify-icon { transition: transform 0.3s ease; }
+    </style>
+</head>
+<body class="bg-p-dark text-white font-sans antialiased">
+
+    <header class="relative h-[60vh] flex items-center justify-center overflow-hidden bg-p-gray">
+        <div class="absolute inset-0 z-0 opacity-20">
+            <svg width="100%" height="100%"><defs><pattern id="dots" width="20" height="20" patternUnits="userSpaceOnUse"><circle cx="2" cy="2" r="1" fill="#fff"/></pattern></defs><rect width="100%" height="100%" fill="url(#dots)"/></svg>
+        </div>
+        <div class="z-10 text-center animate__animated animate__fadeInUp">
+            <img src="{{ user.avatar_url }}" alt="{{ user.login }}" class="w-32 h-32 rounded-full mx-auto border-4 border-p-blue shadow-2xl mb-6">
+            <h1 class="text-5xl font-extrabold tracking-tight mb-2">Portfolio</h1>
+            <h2 class="text-3xl text-p-blue font-bold mb-4">{{ user.name }}</h2>
+            <p class="text-xl text-gray-400 mb-8 max-w-lg mx-auto">
+                {{ user.bio }}
+            </p>
+            <a href="#sobre-mi" class="bg-p-blue hover:bg-p-accent text-white font-bold py-3 px-8 rounded-full transition duration-300">
+                Conoce mi perfil
+            </a>
+        </div>
+    </header>
+
+    <nav class="sticky top-0 z-50 bg-p-gray/80 backdrop-blur-md border-b border-gray-800 shadow-xl transition-all duration-300">
+        <div class="max-w-6xl mx-auto px-8 py-4 flex justify-between items-center">
+            <a href="#" class="text-lg font-mono font-bold tracking-wider text-p-blue hover:text-p-accent transition">
+                &lt;enoocdev /&gt;
+            </a>
+            <div class="flex gap-6 font-medium text-sm sm:text-base">
+                <a href="#sobre-mi" class="text-gray-300 hover:text-p-blue transition duration-200">Sobre Mi</a>
+                <a href="#habilidades" class="text-gray-300 hover:text-p-blue transition duration-200">Habilidades</a>
+                <a href="#proyectos" class="text-gray-300 hover:text-p-blue transition duration-200">Proyectos</a>
+                <a href="#contacto" class="text-gray-300 hover:text-p-blue transition duration-200">Contacto</a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="max-w-6xl mx-auto p-8 py-16">
+
+        <section id="sobre-mi" class="mb-24 scroll-mt-24 animate__animated animate__fadeIn">
+            <div class="bg-p-gray p-10 rounded-3xl border border-gray-800 shadow-xl">
+                <h2 class="text-3xl font-bold mb-6"><span class="text-p-blue">//</span> Mi Perfil y Objetivo</h2>
+                <p class="text-gray-300 text-lg leading-relaxed mb-4">
+                    Soy un apasionado de la tecnologia con un enfoque claro hacia la ciberseguridad, los sistemas y la infraestructura. Aunque tengo una base solida en programacion con lenguajes de alto rendimiento y bajo nivel como Rust, C++ y Java, mi objetivo principal no es el desarrollo de software convencional, sino entender como se construyen y comunican los sistemas desde sus cimientos para poder protegerlos. Me muevo de forma nativa en entornos Linux, automatizando tareas con Bash y analizando arquitecturas de red.
+                </p>
+                <p class="text-gray-300 text-lg leading-relaxed">
+                    Proximamente iniciare la carrera de <strong>Ingenieria en Telecomunicaciones</strong> para profundizar en los protocolos de transmision y las redes globales. Mi meta es aplicar mis conocimientos de codigo y sistemas para especializarme en la seguridad de la informacion, buscando vulnerabilidades y fortificando infraestructuras .
+                </p>
+            </div>
+        </section>
+
+        <section id="habilidades" class="mb-24 scroll-mt-24 animate__animated animate__fadeIn">
+            <h2 class="text-4xl font-bold text-center mb-16"><span class="text-p-blue">//</span> Mis Habilidades</h2>
+            <div class="grid grid-cols-2 md:grid-cols-5 gap-8">
+                {% for skill in skills %}
+                    <div class="skill-card bg-p-gray p-8 rounded-2xl text-center shadow-lg hover:shadow-p-blue/20 transition duration-300 transform hover:-translate-y-2 border border-gray-800">
+                        <iconify-icon icon="{{ skill.icon }}" class="text-6xl mb-4 text-p-blue"></iconify-icon>
+                        <p class="font-semibold text-lg">{{ skill.name }}</p>
+                    </div>
+                {% endfor %}
+            </div>
+        </section>
+
+        <section id="proyectos" class="mb-24 scroll-mt-24 animate__animated animate__fadeIn">
+            <h2 class="text-4xl font-bold text-center mb-16"><span class="text-p-blue">//</span> Proyectos Destacados</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                {% for repo in repos %}
+                    <div class="bg-p-gray p-8 rounded-2xl border border-gray-800 shadow-lg hover:border-p-blue transition duration-300 group flex flex-col justify-between">
+                        <div>
+                            <div class="flex justify-between items-start mb-4">
+                                <h3 class="text-2xl font-bold text-white group-hover:text-p-blue transition">{{ repo.name }}</h3>
+                                <span class="flex items-center gap-1 text-yellow-400 font-bold">
+                                    <iconify-icon icon="ant-design:star-filled"></iconify-icon>
+                                    {{ repo.stargazers_count }}
+                                </span>
+                            </div>
+                            <p class="text-gray-400 mb-6">
+                                {{ repo.description }}
+                            </p>
+                        </div>
+                        <div class="flex justify-between items-center mt-4 border-t border-gray-700 pt-4">
+                            <span class="font-mono text-p-accent text-sm">
+                                {{ repo.language }}
+                            </span>
+                            <div class="flex items-center gap-4">
+                                <a href="{{ repo.html_url }}" target="_blank" class="text-p-blue font-semibold hover:text-p-accent transition flex items-center gap-1">
+                                    Ver en GitHub <iconify-icon icon="mdi:open-in-new"></iconify-icon>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </section>
+
+        <section id="contacto" class="text-center scroll-mt-24 animate__animated animate__fadeInUp bg-p-gray p-16 rounded-3xl border border-gray-800">
+            <h2 class="text-4xl font-bold mb-4">Tienes un proyecto en mente?</h2>
+            <p class="text-xl text-gray-400 mb-8 max-w-2xl mx-auto">
+                Estoy siempre abierto a nuevas oportunidades. Escribeme a mi correo o conectemos en redes sociales.
+            </p>
+            
+            <p class="text-p-accent text-xl font-mono mb-10">enoocdominguezquiroga@gmail.com</p>
+
+            <div class="flex flex-wrap justify-center gap-6">
+                <a href="mailto:enoocdominguezquiroga@gmail.com" class="bg-blue-600 hover:bg-blue-500 text-white font-bold py-3 px-8 rounded-full transition duration-300 text-lg flex items-center gap-2">
+                    <iconify-icon icon="ic:baseline-email" class="text-2xl"></iconify-icon> Enviar Correo
+                </a>
+                
+                <a href="https://linkedin.com/in/TU_USUARIO_AQUI" target="_blank" class="bg-[#0077b5] hover:bg-[#006699] text-white font-bold py-3 px-8 rounded-full transition duration-300 text-lg flex items-center gap-2">
+                    <iconify-icon icon="mdi:linkedin" class="text-2xl"></iconify-icon> LinkedIn
+                </a>
+
+                <a href="https://www.instagram.com/eno0c_?igsh=bHRxc2JwZzRhbGJz" target="_blank" class="bg-gradient-to-tr from-yellow-400 via-pink-500 to-purple-600 hover:opacity-90 text-white font-bold py-3 px-8 rounded-full transition duration-300 text-lg flex items-center gap-2 shadow-lg">
+                    <iconify-icon icon="mdi:instagram" class="text-2xl"></iconify-icon> Instagram
+                </a>
+
+                <a href="https://github.com/enoocdev" target="_blank" class="bg-gray-800 hover:bg-gray-700 text-white font-bold py-3 px-8 rounded-full transition duration-300 text-lg flex items-center gap-2">
+                    <iconify-icon icon="mdi:github" class="text-2xl"></iconify-icon> GitHub
+                </a>
+            </div>
+        </section>
+
+    </main>
+
+</body>
+</html>
