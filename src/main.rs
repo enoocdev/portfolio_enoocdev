@@ -78,7 +78,7 @@ async fn render_portfolio() -> impl IntoResponse {
         ("React", "logos:react"),
         ("Python", "logos:python"),
         ("Django", "logos:django-icon"),
-        ("Axum", "mdi:axum"),
+        ("Axum", "logos:rust"),
         ("Java", "logos:java"),
         ("Bash", "logos:bash-icon"),
         ("Linux OS", "logos:linux-tux"),
