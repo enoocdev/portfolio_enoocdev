@@ -40,7 +40,6 @@ async fn main() {
         .route("/", get(render_portfolio));
 
     let listener = TcpListener::bind("0.0.0.0:3000").await.unwrap();
-    println!("Portfolio corriendo en http://localhost:3000");
     axum::serve(listener, app).await.unwrap();
 }
 
