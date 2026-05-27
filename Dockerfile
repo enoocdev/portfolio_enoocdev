@@ -2,6 +2,8 @@ FROM rust:1.77-bookworm AS builder
 WORKDIR /usr/src/app
 COPY . .
 
+RUN apt-get update && apt-get install -y pkg-config libssl-dev build-essential
+
 RUN cargo build --release
 
 FROM debian:bookworm-slim
